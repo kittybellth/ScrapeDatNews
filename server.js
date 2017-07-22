@@ -36,7 +36,7 @@ app.set("view engine", "handlebars");
 mongoose.connect(process.env.DB_MONGO_HEROKU);
 const db = mongoose.connection;
 
-//require all routes
+//require all routes 
 require("./routes/api-routes.js")(app);
 
 // Show any mongoose errors
