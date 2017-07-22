@@ -50,7 +50,7 @@ $(".content").empty();
         }
     }
 });
-}
+};
 
 
 // When ever user click "Save News btn"
@@ -70,7 +70,18 @@ $(document).on("click",".save-news", function(){
 // function to close alert box
 $(document).on("click",".close", function(){
     $(".alert").toggleClass("invisible");
-})
+});
+
+// function to delete data
+$(document).on("click","#delete", function(){
+    $.ajax({
+        method: "GET",
+        url: "/delete"
+    })
+    .done(function(data){
+       location.reload(data);
+    })
+});
 
 getData();
 });

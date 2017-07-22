@@ -128,6 +128,20 @@ module.exports = function(app) {
         res.json(true);
     });
 
+      // Save News Route
+    app.get("/delete", function(req, res){ 
+        // delete all  news
+        News.remove(function (err) {
+            if (err) return handleError(err);
+        });
+        // delete all notes
+        Note.remove(function (err) {
+            if (err) return handleError(err);
+        });
+        //redirect the user
+        res.json("/");
+    });
+
     // save news routes
     app.post("/save/:id", function(req, res) {
         // Use the news id to find and update saved status
