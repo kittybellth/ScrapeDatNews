@@ -17,10 +17,14 @@ module.exports = function(app) {
     //scrape route
     app.get("/scrape", function(req, res) {
 
-        // // delete all article in database first
-        // Article.remove(function (err) {
-        //     if (err) return handleError(err);
-        // });
+        // delete all unsaved news
+        News.remove({saved:false},function (err) {
+            if (err) return handleError(err);
+        });
+        // delete all unsaved notes
+        Note.remove({saved:false},function (err) {
+            if (err) return handleError(err);
+        });
 
         var scrapeLink = "https://www.nytimes.com/section/world?WT.nav=page&action=click&contentCollection=World&module=HPMiniNav&pgtype=Homepage&region=TopBar"
         // First, we grab the body of the html with request
@@ -47,13 +51,10 @@ module.exports = function(app) {
                         }
                         // Or log the doc
                         else { 
-                        console.log(doc);
-                        
+                        console.log(doc);      
                         }
                     });
-
                 //we will retrieve only 20 news
-                console.log(i);
                 if (i == 19){
                     res.json(i+1);
                     return false;
@@ -68,11 +69,11 @@ module.exports = function(app) {
         News.find({}, function(error, doc) {
             // Log any errors
             if (error) {
-            console.log(error);
+                console.log(error);
             }
             // Or send the doc to the browser as a json object
             else {
-            res.json(doc);
+                res.json(doc);
             }
         });
     });
@@ -88,11 +89,11 @@ module.exports = function(app) {
         News.find({"saved": true}, function(error, doc) {
             // Log any errors
             if (error) {
-            console.log(error);
+                console.log(error);
             }
             // Or send the doc to the browser as a json object
             else {
-            res.json(doc);
+                res.json(doc);
             }
         });
     });
@@ -117,6 +118,16 @@ module.exports = function(app) {
         });
     });
 
+      // Delete Notes Route
+    app.get("/delete/notes/:id", function(req, res){
+         // Using the id passed in the id parameter, prepare a query that finds the matching one in our db and delete
+        Note.remove({_id:req.params.id}, function (err) {
+            if (err) return handleError(err);
+        });
+
+        res.json(true);
+    });
+
     // save news routes
     app.post("/save/:id", function(req, res) {
         // Use the news id to find and update saved status
@@ -138,9 +149,21 @@ module.exports = function(app) {
         .exec(function(err, doc) {
             // Log any errors
             if (err) {
-            console.log(err);
-            }
-        });
+                console.log(err);
+            } else {
+                for(let i = 0; i < doc.note.length; i++){
+                     // Update note document to saved for furthur delete purposes
+                    Note.findOneAndUpdate({"_id":doc.note[i]}, {"saved": false})
+                    // Execute the above query
+                    .exec(function(err, doc) {
+                        // Log any errors
+                        if (err) {
+                        console.log(err);
+                        }
+                    });
+                };
+            };
+        });    
     });
 
     // Create a new note or replace an existing note
@@ -156,19 +179,24 @@ module.exports = function(app) {
             }
             // Otherwise
             else {
-            // Use the article id to find and update it's note
-            News.findOneAndUpdate({ "_id": req.params.id }, {$push: {"note": doc._id}})
-            // Execute the above query
-            .exec(function(err, doc) {
-                // Log any errors
-                if (err) {
-                console.log(err);
-                }
-                else {
-                // Or send the document to the browser
-                console.log(doc);
-                }
-            });
+                // Use the article id to find and update it's note
+                News.findOneAndUpdate({ "_id": req.params.id }, {$push: {"note": doc._id}})
+                // Execute the above query
+                .exec(function(err, doc) {
+                    // Log any errors
+                    if (err) {
+                    console.log(err);
+                    }
+                });
+                // Update note document to saved for furthur delete purposes
+                Note.findOneAndUpdate({"_id":doc._id}, {"saved": true})
+                // Execute the above query
+                .exec(function(err, doc) {
+                    // Log any errors
+                    if (err) {
+                    console.log(err);
+                    } 
+                });
             }
         });
     });

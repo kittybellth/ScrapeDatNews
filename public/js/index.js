@@ -2,6 +2,8 @@ $(document).ready(function() {
 
 // whenever user clcik "Fetch The News "
 $("#scrape").on("click", function(){
+
+    $("#scrape").text("Loading").append('<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i>').prop("disabled", true);
     // Now make an ajax call for the Article
     $.ajax({
         method: "GET",
@@ -12,6 +14,7 @@ $("#scrape").on("click", function(){
         getData();
         $(".alert-msg").text("You have added "+ data +" news")
         $(".alert").toggleClass("invisible");
+        $("#scrape").empty().text('Fetch The News').prop("disabled", false);
     });
 });
 

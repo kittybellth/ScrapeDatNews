@@ -8,6 +8,10 @@ var NoteSchema = new Schema({
   // Just a string
   body: {
     type: String
+  },
+  //Boolean
+  saved: {
+    type: Boolean
   }
 });
 
