@@ -1,22 +1,23 @@
 $(document).ready(function() {
 
+// whenever user clcik "Fetch The News "
 $("#scrape").on("click", function(){
     // Now make an ajax call for the Article
     $.ajax({
         method: "GET",
         url: "/scrape"
     })
-    // With that done, add the Article information to the page
+    // With that done, add the news information to the page
     .done(function(data) {
         getData();
         $(".alert-msg").text("You have added "+ data +" news")
         $(".alert").toggleClass("invisible");
-    })
+    });
 });
 
-// Grab the articles as a json
+// function that displays the news
 function getData(){
-$.get("/articles", function(data) {
+$.get("/news", function(data) {
 
 // empty the div
 $(".content").empty();
@@ -27,7 +28,6 @@ $(".content").empty();
   var divNum = 0;
 
     for (var i = 0; i < data.length; i++) {
-        console.log(data[i].title)
         if (divInRow == 0){
             var row = $("<div>").addClass("row rowNum" + rowNum);  
             $(".content").append(row);
@@ -52,15 +52,16 @@ $(".content").empty();
 
 // When ever user click "Save News btn"
 $(document).on("click",".save-news", function(){
+    //disable the btn
     $(this).text("Saved").prop("disabled", true);
-
+    // grab each of the IDs
     var id = $(this).attr("id");
-    console.log(id);
+
     // Now make an ajax call to save the atrticle
     $.ajax({
         method: "POST",
         url: "/save/" + id
-    })
+    });
 });
 
 // function to close alert box

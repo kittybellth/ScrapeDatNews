@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
-
+const PORT = process.env.PORT || 8080;
 // Initialize Express
 const app = express();
 
@@ -48,8 +48,8 @@ db.on("error", function(error) {
 db.once("open", function() {
   console.log("Mongoose connection successful.");
     
-    // Listen on port 3000
-    app.listen(8080, function() {
-        console.log("App running on port 8080!");
+    // Listen on port 8080
+    app.listen(PORT, function() {
+        console.log("App running on port "+ PORT);
     });
 });

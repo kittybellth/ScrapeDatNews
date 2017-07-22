@@ -1,0 +1,29 @@
+<div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="alert-area">
+        {{!-- <div class="alert alert-info invisible" role="alert" id="note-alert">
+          <button type="button" class="close" id="delete-note" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong><span id="strong-alert"></span></strong><span id="alert-msg"></span>
+        </div> --}}
+        </div>
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="form-control-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="saveNote">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
