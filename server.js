@@ -33,7 +33,7 @@ app.set("view engine", "handlebars");
 
 
 // Database configuration with mongoose
-mongoose.connect(process.env.DB_MONGO_SCRAPE);
+mongoose.connect(process.env.DB_MONGO_HEROKU);
 const db = mongoose.connection;
 
 //require all routes
