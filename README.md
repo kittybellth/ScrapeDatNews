@@ -31,6 +31,23 @@
 [Heroku app](https://shielded-crag-69766.herokuapp.com/)
 
 
-<!-- ***Enjoy Eat-Da-Burger***
-![Application Screenshot](/public/assets/img/SS1.png) -->
+ ***Let's take a look at ScrapeDatNews***
+ The first page of the application allows users to fetch the news in this case we grab data from NYT.
+![Application Screenshot](/public/img/SS1.png)
+
+
+Once all data are loaded, users can save the any news to read it later.
+![Application Screenshot](/public/img/SS2.png) 
+
+
+Users can go to "Saved News" page and read the news they have saved and also unsaved the news.
+![Application Screenshot](/public/img/SS3.png) 
+
+
+Users can add notes into the news and view them later, or delete notes.
+![Application Screenshot](/public/img/SS4.png) 
+
+
+Users can fetch the new news without deleting the saved news.
+![Application Screenshot](/public/img/SS5.png) 
 
