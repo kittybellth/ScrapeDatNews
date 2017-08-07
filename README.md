@@ -10,14 +10,14 @@
 * HTML
 * CSS
 * Javascript
-* Bootstrap (HTML, CSS, Javascript framwork)
+* Bootstrap (HTML, CSS, Javascript framework)
 * JQuery (Javascript library)
 * Node.js (Web-Server Langauge)
 * Mongo (Database)
 
 ### NPM
 * Mongoose (ORM for Node.js)
-* express (Node.js framwork) 
+* express (Node.js framework) 
 * cheerio (JQuey for server) 
 * express-handlebars (Templating engine for Node.js) 
 * method-override (Middleware)
